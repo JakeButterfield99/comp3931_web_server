@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>
+		{% block title %}
+			{{ page_title|default:"Untitled Page" }}
+		{% endblock %}
+	</title>
+
+	<!-- CSS -->
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+
+	<!-- JS -->
+	<script src="{% static 'js/jquery-3.5.1.js' %}"></script>
+	<script src="{% static 'semantic/semantic.min.js' %}"></script>
+
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+
+</head>
+<body>
+	<nav class="ui text container" id="navBar">
+
+		<h1 class="ui center aligned header">
+			<img class="ui medium image" src="{% static 'virus.png' %}">
+
+			<div class="content" style="padding-right: .75rem">
+				<span style="color: #037E00">Virus</span>Admin
+		  	</div>
+
+		  	<img class="ui medium image" src="{% static 'virus.png' %}">
+		</h1>
+
+		{% if request.user.is_authenticated %}
+
+		<p>( <a href="{% url 'logout' %}">Logout</a> )</p>
+
+		<div class="ui four item menu">
+			
+			<a class="item" href="{% url 'index' %}" id="menu_list">
+				Staff Report
+			</a>
+
+			<a class="item" href="{% url 'breach' %}" id="menu_breach">
+				Breach Reports
+			</a>
+
+			<a class="item" href="{% url 'report' %}" id="menu_case">
+				Test Reports
+			</a>
+
+			<a class="item" href="{% url 'search' %}" id="menu_search">
+				Employee Search
+			</a>
+			
+		</div>
+
+
+		{% endif %}
+
+		<div class="ui divider"></div>
+
+	</nav>
+
+
+	{% block content %}
+		<p>Placeholder Text</p>
+	{% endblock %}
+
+	<script>
+		function changeNav( activeID ) {
+			$('#menu_' + activeID).addClass('active');
+		}
+	</script>
+
+	<!-- Extra JS -->
+	{% block javascript %}
+	{% endblock %}
+
+</body>
+</html>

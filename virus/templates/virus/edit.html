@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="ui text container">
+
+	<h1 class="ui header">
+		{{ employee.full_name }}
+		<span style="float: right">
+			<a href="../../generate/{{ employee.id }}">
+				<button class="ui primary button">
+					Generate Isolation Report
+				</button>
+			</a>
+		</span>
+	</h1>
+
+	<div class="ui styled accordion" style="width: 100%">
+
+		<div class="active title">
+			<i class="dropdown icon"></i>
+			Edit Employee
+		</div>
+
+		<div class="active content">
+
+			<form class="ui form" method="POST">
+
+				{% csrf_token %}
+
+				<div class="field">
+					<label>Name:</label>
+					<input type="text" name="full_name" value="{{ employee.full_name }}">
+				</div>
+
+				<div class="field">
+					<label>Phone Number:</label>
+					<input type="text" name="phone" value="{{ employee.phone_num }}">
+				</div>
+
+				<div class="field">
+					<label>Department:</label>
+					<input type="text" name="department" value="{{ employee.department }}">
+				</div>				
+
+				<div class="two fields">
+					<div class="field">
+						<label>App Username:</label>
+						<input type="text" name="username" value="{{ employee.username }}">
+					</div>
+					<div class="field">
+						<label>App Passcode:</label>
+						<input type="text" name="passcode" value="{{ employee.passcode }}">
+					</div>				
+				</div>
+
+				<div class="field">
+					<button class="ui fluid primary button">
+						Edit Employee
+					</button>
+				</div>	
+
+			</form>
+
+		</div>
+
+		<!--
+			Bluetooth
+		-->
+
+		<div class="title">
+			<i class="dropdown icon"></i>
+			Bluetooth Details
+		</div>
+
+		<div class="content">
+			<h4>Latest UUID:</h4>
+			<p>{{ bluetooth.uuid }}</p>
+		</div>
+
+		<!--
+			Test Results
+		-->
+
+		<div class="title">
+			<i class="dropdown icon"></i>
+			Test Results
+		</div>
+
+		<div class="content">
+			<table class="ui celled table">
+
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Result</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					{% for result in results %}
+					<tr>
+						<td>{{ result.date }}</td>
+						<td>{{ result.result }}</td>
+					</tr>
+					{% endfor %}
+
+				</tbody>
+
+			</table>			
+		</div>
+
+		<div class="title">
+			<i class="dropdown icon"></i>
+			Breach Reports
+		</div>
+
+		<div class="content">
+			<table class="ui celled table">
+
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Breached With</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					{% for breach in breaches %}
+					<tr>
+						<td>{{ breach.date }}</td>
+						<td>{{ breach.emp2.full_name }}</td>
+					</tr>
+					{% endfor %}
+
+				</tbody>
+
+			</table>			
+		</div>		
+
+	</div>
+ 
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			changeNav( 'search' );
+
+			$('.ui.accordion')
+			  .accordion()
+			;
+		})
+	</script>
+
+{% endblock %}

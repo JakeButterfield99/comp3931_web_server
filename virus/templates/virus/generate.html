@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="ui text container">
+
+	<h2 class="ui header">
+		{{ employee.full_name }} - Isolation Report
+	</h2>
+
+	<div class="ui stacked segment">
+		<p>The following staff members are at-risk and should be considered for self-isolation:</p>
+
+		<table class="ui celled table">
+
+			<thead>
+				<tr>
+					<th>Employee Name</th>
+					<th>Breach Occured</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				{% for empName, dates in iso.items %}
+				<tr>
+					<td>{{ empName }}</td>
+
+					<td>
+						<div class="ui bulleted list">
+							{% for date in dates %}
+								<div class="item">{{ date }}</div>
+							{% endfor %}
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			changeNav( 'search' );
+		})
+	</script>
+
+{% endblock %}

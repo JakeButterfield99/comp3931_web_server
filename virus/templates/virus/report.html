@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="ui text container">
+
+	<div class="ui styled accordion" style="width: 100%">
+		<div class="title">
+			<i class="dropdown icon"></i>
+			New Test Report
+		</div>
+
+		<div class="content">
+
+			<form class="ui form" method="POST">
+
+				{% csrf_token %}
+
+				<div class="field">
+					<label>Employee:</label>
+					<div class="ui selection dropdown">
+						<input type="hidden" name="employee">
+						<i class="dropdown icon"></i>
+						<div class="default text">Employee</div>
+						<div class="menu">
+
+							{% for emp in employees %}
+								<div class="item" data-value="{{ emp.id }}">{{ emp.full_name }}</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label>Test Result:</label>
+					<div class="ui selection dropdown">
+						<input type="hidden" name="result">
+						<i class="dropdown icon"></i>
+						<div class="default text">Test Result</div>
+						<div class="menu">
+							<div class="item" data-value="1">Positive</div>
+							<div class="item" data-value="0">Negative</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<button class="ui primary fluid button">
+						Submit
+					</button>
+				</div>
+
+			</form>
+
+		</div>
+
+	</div>
+
+	<div class="ui divider"></div>
+
+	<table class="ui celled table">
+
+		<thead>
+			<tr>
+				<th>Employee Name</th>
+				<th>Result</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			{% for result in results %}
+			<tr>
+				<td>{{ result.employee.full_name }}</td>
+				<td>{{ result.result }}</td>
+				<td>{{ result.date }}</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+
+	</table>	
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			changeNav( 'case' )
+
+			$('.ui.dropdown')
+			  .dropdown()
+			;
+
+			$('.ui.accordion')
+			  .accordion()
+			;
+		})
+	</script>
+
+{% endblock %}

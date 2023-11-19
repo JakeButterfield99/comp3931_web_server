@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="ui text container">
+
+	<div class="ui styled accordion" style="width: 100%">
+		<div class="title">
+			<i class="dropdown icon"></i>
+			New Staff Member
+		</div>
+
+		<div class="content">
+
+			<form class="ui form" method="POST">
+
+				{% csrf_token %}
+
+				<div class="field">
+					<label>Name:</label>
+					<input type="text" name="name" placeholder="John Smith">
+				</div>
+
+				<div class="field">
+					<label>Phone Number:</label>
+					<input type="text" name="phone" placeholder="07123456789">
+				</div>
+
+				<div class="field">
+					<label>Department:</label>
+					<input type="text" name="dept" placeholder="John Smith">
+				</div>
+
+				<div class="ui divider"></div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>App Username:</label>
+						<input type="text" name="username" placeholder="john">
+					</div>
+					<div class="field">
+						<label>App Passcode:</label>
+						<input type="text" name="passcode" placeholder="1234">
+					</div>
+				</div>
+
+				<div class="field">
+					<button class="ui primary fluid button">
+						Submit
+					</button>
+				</div>
+
+			</form>
+
+		</div>
+
+	</div>
+
+	<div class="ui divider"></div>
+
+	<table class="ui celled table">
+
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Username</th>
+				<th>Department</th>
+				<th>Profile</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			{% for employee in employees %}
+			<tr>
+				<td>{{ employee.full_name }}</td>
+				<td>{{ employee.username }}</td>
+				<td>{{ employee.department }}</td>
+				<td>
+					<a href="edit/{{ employee.id }}">
+						<button class="ui fluid button">
+							Edit
+						</button>
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+
+	</table>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			changeNav( 'list' );
+
+			$('.ui.accordion')
+			  .accordion()
+			;
+		})
+	</script>
+
+{% endblock %}

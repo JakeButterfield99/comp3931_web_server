@@ -1,0 +1,14 @@
+/* Hello World! */
+
+#navBar {
+	margin-top: 3em;
+}
+
+#navBar p {
+	text-align: center;
+}
+
+#navBar .header .content {
+	font-family: 'Oswald', sans-serif;
+	font-size: 48px;
+}
